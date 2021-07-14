@@ -15,7 +15,7 @@ const prepareStateFromWord = () => {
         // word,
         wordlist,
         attempt: 1,
-        com_guess: '',
+        com_guess: randomWord(),
         completed: false,
         com_point: 0,
         player_point: 0
@@ -103,7 +103,7 @@ export default function WordCard(props){
         return(
             <div>
                 Game Over
-                <div>
+                <div onClick={setState(prepareStateFromWord())} >
                     Play again
                 </div>
             </div>
