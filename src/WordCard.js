@@ -17,8 +17,8 @@ const prepareStateFromWord = () => {
         attempt: 1,
         com_guess: randomWord(),
         completed: false,
-        com_point: 0,
-        player_point: 0
+        com_point: 1,
+        player_point: 1
 
     }
 }
@@ -45,13 +45,16 @@ export default function WordCard(props){
 
         setState({...state, com_guess: randomWord()})
 
+        console.log('Player choose ' + word)
+        console.log('Com choose ' + state.com_guess)
+
         if(word == things[2]){
             if(state.com_guess == things[0]){
                 setState({...state, com_point: state.com_point + 1})
-                console.log('Com get point')
+                console.log('Com get point ' + state.com_point)
             }else if(state.com_guess == things[1]){
                 setState({...state, player_point: state.player_point + 1})
-                console.log('Player get point')
+                console.log('Player get point ' + state.player_point)
             }else{
                 console.log('Draw')
             }
@@ -59,10 +62,10 @@ export default function WordCard(props){
         else if(word == things[1]){
             if(state.com_guess == things[2]){
                 setState({...state, com_point: state.com_point + 1})
-                console.log('Com get point')
+                console.log('Com get point ' + state.com_point)
             }else if(state.com_guess == things[0]){
                 setState({...state, player_point: state.player_point + 1})
-                console.log('Player get point')
+                console.log('Player get point ' + state.player_point)
             }else{
                 console.log('Draw')
             }
@@ -70,10 +73,10 @@ export default function WordCard(props){
         else if(word == things[0]){
             if(state.com_guess == things[1]){
                 setState({...state, com_point: state.com_point + 1})
-                console.log('Com get point')
+                console.log('Com get point ' + state.com_point)
             }else if(state.com_guess == things[2]){
                 setState({...state, player_point: state.player_point + 1})
-                console.log('Player get point')
+                console.log('Player get point ' + state.player_point)
             }else{
                 console.log('Draw')
             }
@@ -86,18 +89,18 @@ export default function WordCard(props){
             console.log('Com win!')
             setState({...state, completed: true})
         }
-
-        console.log(word)
-        console.log(state.com_guess)
     }
 
     const resetGame = () =>{
         setState(prepareStateFromWord())
     }
 
+    const textHead = `textHeader`
+    const cardBotton = `card`
+
     if(!state.completed)
         return (
-            <div>
+            <div style = {{textAlign:'center'}}>
                 {
                     state.wordlist.map((c, i) =>
                         <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>)
@@ -106,10 +109,10 @@ export default function WordCard(props){
         )
     else if(state.completed)
         return(
-            <div>
-                Game Over
-                <div onClick={resetGame} >
-                    Play again
+            <div style = {{textAlign:'center'}}>
+                <span className = {textHead} style = {{fontWeight:'bold'}}>Game Over</span>
+                <div>
+                    <span className = {cardBotton} onClick={resetGame} >Play again</span>
                 </div>
             </div>
         )
