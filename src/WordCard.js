@@ -90,13 +90,22 @@ export default function WordCard(props){
         console.log(word)
         console.log(state.com_guess)
     }
-
-    return (
-        <div>
-            {
-                state.wordlist.map((c, i) =>
-                    <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>)
-            }
-        </div>
-    )
+    if(!state.completed)
+        return (
+            <div>
+                {
+                    state.wordlist.map((c, i) =>
+                        <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>)
+                }
+            </div>
+        )
+    else if(state.completed)
+        return(
+            <div>
+                Game Over
+                <div>
+                    Play again
+                </div>
+            </div>
+        )
 }
