@@ -3,7 +3,10 @@ import _ from 'lodash'
 import CharacterCard from './CharacterCard';
 
 const things = ['Rock', 'Paper', 'Scissor'];
-var thing = things[Math.floor(Math.random()*things.length)];
+
+const randomWord = () =>{
+    return things[Math.floor(Math.random()*things.length)]
+}
 
 const prepareStateFromWord = () => {
     // let word = given_word.toUpperCase()
@@ -12,7 +15,7 @@ const prepareStateFromWord = () => {
         // word,
         wordlist,
         attempt: 1,
-        guess: '',
+        com_guess: '',
         completed: false,
         com_point: 0,
         player_point: 0
@@ -40,7 +43,52 @@ export default function WordCard(props){
         //     }
         // }
 
+        setState({...state, com_guess: randomWord()})
+
+        if(word == things[2]){
+            if(state.com_guess == things[0]){
+                setState({...state, com_point: state.com_point + 1})
+                console.log('Com get point')
+            }else if(state.com_guess == things[1]){
+                setState({...state, player_point: state.player_point + 1})
+                console.log('Player get point')
+            }else{
+                console.log('Draw')
+            }
+        }
+        else if(word == things[1]){
+            if(state.com_guess == things[2]){
+                setState({...state, com_point: state.com_point + 1})
+                console.log('Com get point')
+            }else if(state.com_guess == things[0]){
+                setState({...state, player_point: state.player_point + 1})
+                console.log('Player get point')
+            }else{
+                console.log('Draw')
+            }
+        }
+        else if(word == things[0]){
+            if(state.com_guess == things[1]){
+                setState({...state, com_point: state.com_point + 1})
+                console.log('Com get point')
+            }else if(state.com_guess == things[2]){
+                setState({...state, player_point: state.player_point + 1})
+                console.log('Player get point')
+            }else{
+                console.log('Draw')
+            }
+        }
+        
+        if(state.player_point == 5){
+            console.log('Player win!')
+            setState({...state, completed: true})
+        }else if(state.com_point == 5){
+            console.log('Com win!')
+            setState({...state, completed: true})
+        }
+
         console.log(word)
+        console.log(state.com_guess)
     }
 
     return (
