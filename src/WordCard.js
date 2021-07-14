@@ -90,6 +90,11 @@ export default function WordCard(props){
         console.log(word)
         console.log(state.com_guess)
     }
+
+    const resetGame = () =>{
+        setState(prepareStateFromWord())
+    }
+
     if(!state.completed)
         return (
             <div>
@@ -103,7 +108,7 @@ export default function WordCard(props){
         return(
             <div>
                 Game Over
-                <div onClick={setState(prepareStateFromWord())} >
+                <div onClick={resetGame} >
                     Play again
                 </div>
             </div>
